@@ -14,7 +14,7 @@ connectDB();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://nimbou-cms.vercel.app/"],
+    origin: ["http://localhost:5173", "https://nimbou-cms.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
