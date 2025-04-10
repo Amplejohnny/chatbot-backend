@@ -23,6 +23,11 @@ router.post("/", async (req, res) => {
         inputs: message,
         max_length: 100,
       });
+      if (aiResponse.error) {
+        return res.status(500).json({
+          error: "I don’t have a specific answer now please check back later",
+        });
+      }
       res.json({ reply: aiResponse.generated_text });
     }
   } catch (error) {

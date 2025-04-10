@@ -6,6 +6,9 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   try {
     const data = req.body;
+    if (!data.title || !data.text) {
+      return res.status(400).send("Title and text are required");
+    }
     const content = await Content.create(data);
     res.status(201).json(content);
   } catch (error) {
