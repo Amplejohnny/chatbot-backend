@@ -6,9 +6,18 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   try {
     const data = req.body;
-    if (!data.title || !data.text) {
+    //check if title and text are not empty
+    if (!data.title || !data.text)
       return res.status(400).send("Title and text are required");
-    }
+
+    // Check if title and text are within the character limits
+    if (data.title.length > 100 || data.text.length > 1000)
+      return res.status(400).send("Title or text exceeds character limits");
+
+    // Check if content with the same title already exists
+    if (await Content.exists({ title: data.title }))
+      return res.status(400).send("Content with this title already exists");
+
     const content = await Content.create(data);
     res.status(201).json(content);
   } catch (error) {
