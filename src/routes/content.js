@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
 
     // Check if content with the same title already exists
     if (await Content.exists({ title: data.title }))
-      return res.status(400).send("Content with this title already exists");
+      return res.status(409).send("Content with this title already exists"); //status 409 Conflict
 
     const content = await Content.create(data);
     res.status(201).json(content);
